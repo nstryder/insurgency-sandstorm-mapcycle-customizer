@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <section x-data="data" class="mw-lg">
+        <div class="main">
+            <h3>Map</h3><h3>Day</h3><h3>Night</h3>
+            <div></div>
+            <template x-for="i in 2">
+                <div class="hbox">
+                    <template x-for="label in mode_labels">
+                        <h5 x-text="label.short_name" class="mx-s tooltip" :tooltip="label.long_name"></h5>
+                    </template>
+                </div>
+            </template>
+
+            <h4>All Maps</h4>
+            <template x-for="time in ['day', 'night']">
+                <div class="hbox align-center">
+                    <template x-for="mode in mode_names">
+                        <label class="tooltip" :tooltip="snake_to_proper(mode)">
+                            <input type="checkbox" 
+                            :name="time" 
+                            @change="toggle_one_mode(mode, time, $event.target.checked)"
+                            checked
+                            >
+                        </label>
+                    </template>
+                </div>
+            </template>
+
+            <hr>
+
+            <div class="content" x-show="can_see_all_maps">
+                <template x-for="map in maps">
+                    <div class="content">
+                        <h5 x-text="map.name"></h5>
+                        <template x-for="time in ['day', 'night']">
+                            <div class="hbox align-center">
+                                <template x-for="(value, name) in map.day">
+                                    <label class="tooltip" :tooltip="snake_to_proper(name)">
+                                        <input type="checkbox" x-model.boolean="map[time][name]" >
+                                    </label>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+
+            <h4>Time Filter</h4>
+            <template x-for="time in ['day', 'night']">
+                <label class="self-center">
+                    <input type="checkbox" @change="toggle_by_time(time, $event.target.checked)" checked>
+                    Toggle <span x-text="time"></span>
+                </label>
+            </template>
+        </div>
+        <div class="vbox flex-gap-s align-center">
+            <label>
+                <input type="checkbox" x-model="can_see_all_maps">
+                Show All Maps
+            </label>
+            <button class="p-m w-100" @click="generate_list"> generate_list</button>
+            <textarea x-model="generated_list" cols="85" rows="20"></textarea>
+        </div>
+    </section>
+
+    <script defer src="MapListGenerator.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

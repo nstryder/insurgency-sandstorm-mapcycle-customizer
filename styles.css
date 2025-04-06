@@ -1,0 +1,97 @@
+* {
+  font-family: sans-serif;
+}
+
+.mw-lg {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+hr {
+  grid-column-end: span 3;
+  border-top: 2px solid black;
+  width: 100%;
+}
+
+.content {
+  display: contents;
+}
+
+.hbox {
+  display: flex;
+  flex-direction: row;
+}
+
+.vbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.flex-gap-s {
+  gap: 1em;
+}
+
+.w-sm {
+  max-width: 300px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.p-m {
+  padding: 1em;
+}
+
+.mx-s {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
+.space-even {
+  justify-content: space-evenly;
+}
+
+.tooltip {
+  display: inline;
+  position: relative;
+}
+.tooltip:hover:after {
+  background: #333;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
+  top: 26px; /* Change to 'bottom' to put tooltip on top. */
+  color: #fff;
+  content: attr(tooltip);
+  left: 20%;
+  padding: 5px 15px;
+  position: absolute;
+  z-index: 98;
+  width: 220px;
+}
+.tooltip:hover:before {
+  /* This part draws a little arrow. */
+  border: solid;
+  border-color: #333 transparent;
+  border-width: 6px 6px 0 6px;
+  top: 20px;
+  content: "";
+  left: 50%;
+  position: absolute;
+  z-index: 99;
+  transform: scaleY(-1); /* Point arrow upwards. */
+}
