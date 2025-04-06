@@ -1,6 +1,3 @@
-// Need to finish generation code
-// then buttons to filter modes
-// only show all maps if toggle is on since its likely you dont actually need per-map granularity
 class ModeOptions {
     Checkpoint_Insurgents = true;
     Checkpoint_Security = true;
@@ -58,8 +55,8 @@ const data = {
                     if (!value) {
                         continue;
                     }
-                    let is_hardcore = mode.startsWith('Hardcore');
                     // Hardcore is an edge case
+                    let is_hardcore = mode.startsWith('Hardcore');
                     if (is_hardcore) {
                         mode = mode.substring("Hardcore_".length);
                     }
