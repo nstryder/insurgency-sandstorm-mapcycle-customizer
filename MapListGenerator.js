@@ -5,7 +5,7 @@ class ModeOptions {
     Checkpoint_Insurgents = true;
     Checkpoint_Security = true;
     Hardcore_Checkpoint_Insurgents = true;
-    Hardcore_checkpoint_Security = true;
+    Hardcore_Checkpoint_Security = true;
     Outpost = true;
     Survival = true;
 }
@@ -14,10 +14,11 @@ class MapItem {
     day = new ModeOptions();
     night = new ModeOptions();
     constructor(name) {
-        this.name = name
+        this.name = name;
     }
 }
-const map_names = ["Bab",
+const map_names = [
+    "Bab",
     "Citadel",
     "Crossing",
     "Farmhouse",
@@ -34,7 +35,8 @@ const map_names = ["Bab",
     "Tell",
     "Tideway",
     "Prison",
-    "Trainyard"]
+    "Trainyard"
+];
 const data = {
     maps: [],
     generated_list: "",
@@ -66,13 +68,15 @@ const data = {
                 }
             }
         }
+        navigator.clipboard.writeText(this.generated_list);
+        this.show_copy_message();
     },
     get_line(name, mode, time, is_hardcore) {
         return `(Scenario="Scenario_${name}_${mode}",Lighting="${time}"${is_hardcore ? ',Mode="CheckpointHardcore"' : ''})\n`;
     },
     init_options() {
         for (const map of map_names) {
-            this.maps.push(new MapItem(map))
+            this.maps.push(new MapItem(map));
         }
     },
     get_mode_names() {
@@ -94,9 +98,17 @@ const data = {
     },
     toggle_by_time(time, value) {
         for (const mode_name of this.mode_names) {
-            this.toggle_one_mode(mode_name, time, value)
+            this.toggle_one_mode(mode_name, time, value);
         }
-        document.querySelectorAll(`input[name=${time}`).forEach(x => x.checked = value)
+        document.querySelectorAll(`input[name=${time}`).forEach(x => x.checked = value);
+    },
+    generator_text: 'Generate MapCycle',
+    show_copy_message() {
+        this.generator_text = 'Generated. MapCycle.txt copied to clipboard.';
+        setTimeout(this.revert_copy_message, 2000);
+    },
+    revert_copy_message() {
+        Alpine.reactive(data).generator_text = 'Generate MapCycle';
     },
 }
-data.init_options()
+data.init_options();

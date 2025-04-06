@@ -11,12 +11,16 @@
 .main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 0.5em;
 }
 
-hr {
+.table-row:nth-child(odd) div {
+  background-color: beige;
+  border-radius: 4px;
+}
+
+.grid-line {
   grid-column-end: span 3;
-  border-top: 2px solid black;
-  width: 100%;
 }
 
 .content {
@@ -57,9 +61,32 @@ hr {
   padding: 1em;
 }
 
+.py-auto {
+  padding-top: auto;
+  padding-bottom: auto;
+}
+
+.m-m {
+  margin: 1em;
+}
+
+.border {
+  border: 1px solid darkgray;
+  border-radius: 4px;
+}
+
 .mx-s {
   margin-left: 0.25em;
   margin-right: 0.25em;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .space-even {

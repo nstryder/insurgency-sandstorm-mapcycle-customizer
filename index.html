@@ -12,9 +12,10 @@
 
 <body>
     <section x-data="data" class="mw-lg">
+        <h1 class="text-center">Insurgency Sandstorm Map Cycle Generator</h1>
         <div class="main">
             <h3>Map</h3><h3>Day</h3><h3>Night</h3>
-            <div></div>
+            <div><h5>Modes</h5></div>
             <template x-for="i in 2">
                 <div class="hbox">
                     <template x-for="label in mode_labels">
@@ -38,12 +39,19 @@
                 </div>
             </template>
 
-            <hr>
+            <div class="grid-line mx-auto p-m border">
+                <label class="p-m">
+                    <input class="p-m" type="checkbox" x-model="can_see_all_maps">
+                    Show All Maps
+                </label>
+            </div>
 
             <div class="content" x-show="can_see_all_maps">
                 <template x-for="map in maps">
-                    <div class="content">
-                        <h5 x-text="map.name"></h5>
+                    <div class="content table-row">
+                        <div>
+                            <h5 class="py-auto" x-text="map.name"></h5>
+                        </div>
                         <template x-for="time in ['day', 'night']">
                             <div class="hbox align-center">
                                 <template x-for="(value, name) in map.day">
@@ -59,18 +67,14 @@
 
             <h4>Time Filter</h4>
             <template x-for="time in ['day', 'night']">
-                <label class="self-center">
-                    <input type="checkbox" @change="toggle_by_time(time, $event.target.checked)" checked>
+                <label class="self-center border p-m">
+                    <input class="p-m" type="checkbox" @change="toggle_by_time(time, $event.target.checked)" checked>
                     Toggle <span x-text="time"></span>
                 </label>
             </template>
         </div>
-        <div class="vbox flex-gap-s align-center">
-            <label>
-                <input type="checkbox" x-model="can_see_all_maps">
-                Show All Maps
-            </label>
-            <button class="p-m w-100" @click="generate_list"> generate_list</button>
+        <div class="vbox flex-gap-s align-center p-m">
+            <button class="p-m w-100" @click="generate_list" x-text="generator_text"></button>
             <textarea x-model="generated_list" cols="85" rows="20"></textarea>
         </div>
     </section>
